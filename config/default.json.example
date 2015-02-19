@@ -1,0 +1,29 @@
+{
+	"slack": {
+		"apiToken": "XXXXXXXXXXXXXXXXXXXXX",
+		"autoReconnect": true,
+		"autoMark": true
+	},
+	"db": {
+		"user": "XXXXXX",
+		"password": "XXXXXX",
+		"database": "XXXXXX",
+		"host": "XXXXXX",
+		"port": 5432
+	},
+	"dbPool": {
+		"name": "postgresql_conn_pool",
+		"min": 0,
+		"max": 10,
+		"idleTimeoutMs": 60000,
+		"logging": false
+	},
+ "bot": {
+ ,  "songs": {
+     "rankThreshold": 1e-20
+   },
+   "logging": {
+     "userMessages": false
+   }
+ }
+}
