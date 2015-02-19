@@ -1,4 +1,4 @@
-#  [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-url]][daviddm-image]
+#  [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-url]][daviddm-image]
 
 > A Tribe Called Quest had a song called Description Of A Fool.
 
@@ -6,23 +6,15 @@
 ## Install
 
 ```sh
-$ npm install --save botintosh
+$ npm install --save
 ```
 
 
 ## Usage
 
 ```js
-var botintosh = require('botintosh');
-
-botintosh('Rainbow');
+node index.js
 ```
-
-```sh
-$ npm install --global botintosh
-$ botintosh --help
-```
-
 
 ## License
 
