@@ -1,4 +1,4 @@
-#  [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-url]][daviddm-image]
+# [![Dependency Status][daviddm-url]][daviddm-image]
 
 > A Tribe Called Quest had a song called Description Of A Fool.
 
