@@ -36,6 +36,5 @@ ResponseHandlers.prototype.doTheSongMeme = function(channel, user, msg) {
       channel.send(response);
     }
   });
-
   return true;
 };

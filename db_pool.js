@@ -2,9 +2,9 @@ var poolModule = require('generic-pool');
 var config = require('config');
 
 exports = module.exports = function () {
-	var poolConfig = config.get('dbPool');
-	var clientConfig = config.get('db');
-	return poolModule.Pool({
+  var poolConfig = config.get('dbPool');
+  var clientConfig = config.get('db');
+  return poolModule.Pool({
     name: poolConfig.name,
     min: poolConfig.min,
     max: poolConfig.max,
@@ -17,7 +17,7 @@ exports = module.exports = function () {
       callback(null, client);
     },
     destroy: function(client) {
-			client.end();
-		}
+      client.end();
+    }
   });
 };

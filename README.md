@@ -18,7 +18,7 @@ node index.js
 
 ## License
 
-MIT © [Jeff Smith]()
+MIT ©2015 [Jeff Smith]()
 
 
 [npm-url]: https://npmjs.org/package/botintosh

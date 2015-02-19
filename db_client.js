@@ -14,8 +14,8 @@ DbClient.prototype.acquireClientFromPool = function() {
     self.pool.acquire(clientHandler);
     function clientHandler(err, client) {
       if(err) {
-				    reject(err);
-			   } else {
+        reject(err);
+      } else {
         resolve(client);
       }
     }
@@ -29,11 +29,11 @@ DbClient.prototype.executeQueryUsingClient = function(client, sql, values) {
     function queryHandler (err, result) {
       self.pool.release(client);
       if(err) {
-				    console.log("%j", err);
-				    reject(err)
-			   } else {
-				    resolve(result);
-			   }
+        console.log("%j", err);
+        reject(err)
+      } else {
+        resolve(result);
+      }
     }
   });
 };
@@ -44,7 +44,7 @@ DbClient.prototype.executeQuery = function (sql, values, selector) {
     return self.executeQueryUsingClient(client, sql, values);
   }).then(function(result) {
     return selector(result);
-	});
+ });
 };
 
 DbClient.prototype.firstRowSelector = function(result) {
