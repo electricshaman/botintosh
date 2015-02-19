@@ -19,48 +19,48 @@ var token = slackConfig.get('apiToken'),
 var slack = new Slack(token, autoReconnect, autoMark);
 
 slack.on('open', function() {
- var channels = [],
-     groups = [],
-     unreads = slack.getUnreadCount(),
-     key;
+  var channels = [],
+      groups = [],
+      unreads = slack.getUnreadCount(),
+      key;
 
- for (key in slack.channels) {
-  if (slack.channels[key].is_member) {
-   channels.push('#' + slack.channels[key].name);
+  for (key in slack.channels) {
+    if (slack.channels[key].is_member) {
+      channels.push('#' + slack.channels[key].name);
+    }
   }
- }
 
- for (key in slack.groups) {
-  if (slack.groups[key].is_open && !slack.groups[key].is_archived) {
-   groups.push(slack.groups[key].name);
+  for (key in slack.groups) {
+    if (slack.groups[key].is_open && !slack.groups[key].is_archived) {
+      groups.push(slack.groups[key].name);
+    }
   }
- }
 
- console.log('Welcome to Slack. You are @%s of %s', slack.self.name, slack.team.name);
- console.log('You are in: %s', channels.join(', '));
- console.log('As well as: %s', groups.join(', '));
- console.log('You have %s unread ' + (unreads === 1 ? 'message' : 'messages'), unreads);
+  console.log('Welcome to Slack. You are @%s of %s', slack.self.name, slack.team.name);
+  console.log('You are in: %s', channels.join(', '));
+  console.log('As well as: %s', groups.join(', '));
+  console.log('You have %s unread ' + (unreads === 1 ? 'message' : 'messages'), unreads);
 });
 
 slack.on('message', function(message) {
- if (message.type === 'message') {
-   var channel = slack.getChannelGroupOrDMByID(message.channel),
-       user = slack.getUserByID(message.user);
+  if (message.type === 'message') {
+    var channel = slack.getChannelGroupOrDMByID(message.channel),
+        user = slack.getUserByID(message.user);
 
-   // This pulls all the functions from ResponseHandlers and calls them with parameters (channel, user, message)
-   // Order of execution is not guaranteed.
-   var results = _.chain(_.functions(handlers))
-     .reduce(function(result, fnKey) {
-       var handler = _.bindKey(handlers, fnKey, channel, user, message);
-       result[fnKey] = _.attempt(handler);
-       return result;
-     }, {})
-     .value();
- }
+    // This pulls all the functions from ResponseHandlers and calls them with parameters (channel, user, message)
+    // Order of execution is not guaranteed.
+    var results = _.chain(_.functions(handlers))
+      .reduce(function(result, fnKey) {
+        var handler = _.bindKey(handlers, fnKey, channel, user, message);
+        result[fnKey] = _.attempt(handler);
+        return result;
+      }, {})
+      .value();
+  }
 });
 
 slack.on('error', function(error) {
- console.error('Error: %s', error);
+  console.error('Error: %s', error);
 });
 
 slack.login();
