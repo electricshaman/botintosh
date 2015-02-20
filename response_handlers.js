@@ -26,7 +26,7 @@ ResponseHandlers.prototype.doTheSongMeme = function(channel, user, msg) {
 
   var query = "SELECT band, full_title, vector, query, ts_rank(vector, query) AS rank " +
     "FROM songs, plainto_tsquery('english', $1) query " +
-    "WHERE ts_rank(vector, query) > $2 ORDER BY rank DESC LIMIT 1";
+    "WHERE ts_rank(vector, query) > $2 AND numnode(query) > 1 ORDER BY rank DESC LIMIT 1";
 
   this.db.executeQuery(query, [msg.text, rankThreshold], function(result) {
     if(result.rowCount == 1) {
