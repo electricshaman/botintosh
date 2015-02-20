@@ -19,7 +19,7 @@ ResponseHandlers.prototype.logMessageToConsole = function(slack, channel, user, 
 ResponseHandlers.prototype.sorryIWasEverBorn = function(slack, channel, user, msg) {
   if(/jeff|hefe/i.test(msg.text)) {
     channel.send("Sorry I was ever born.");
-  }
+	}
   return true;
 };
 
@@ -27,9 +27,9 @@ ResponseHandlers.prototype.doTheSongMeme = function(slack, channel, user, msg) {
   var rankThreshold = config.get('bot.songs.rankThreshold');
 	var msgCleaned = msg.text.replace('\'', '');
 
-  var query = "SELECT band, full_title, vector, query, ts_rank(vector, query) AS rank " +
-    "FROM songs, plainto_tsquery('simple', $1) query " +
-    "WHERE ts_rank(vector, query) > $2 AND numnode(query) > 1 ORDER BY rank DESC LIMIT 1";
+  var query = "SELECT band, full_title, vector, query, ts_rank(vector, query, 32) AS rank " +
+    "FROM songs, plainto_tsquery('english', $1) query " +
+    "WHERE ts_rank(vector, query, 32) > $2 AND numnode(query) > 1 ORDER BY rank DESC LIMIT 1";
 
   this.db.executeQuery(query, [msgCleaned, rankThreshold], function(result) {
     if(result.rowCount == 1) {
