@@ -47,11 +47,11 @@ slack.on('message', function(message) {
     var channel = slack.getChannelGroupOrDMByID(message.channel),
         user = slack.getUserByID(message.user);
 
-    // This pulls all the functions from ResponseHandlers and calls them with parameters (channel, user, message)
+    // This pulls all the functions from ResponseHandlers and calls them with parameters (slack, channel, user, message)
     // Order of execution is not guaranteed.
     var results = _.chain(_.functions(handlers))
       .reduce(function(result, fnKey) {
-        var handler = _.bindKey(handlers, fnKey, channel, user, message);
+        var handler = _.bindKey(handlers, fnKey, slack, channel, user, message);
         result[fnKey] = _.attempt(handler);
         return result;
       }, {})

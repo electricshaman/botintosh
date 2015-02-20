@@ -7,21 +7,21 @@ exports = module.exports = function() {
 function ResponseHandlers() {
 }
 
-ResponseHandlers.prototype.logMessageToConsole = function(channel, user, msg) {
+ResponseHandlers.prototype.logMessageToConsole = function(slack, channel, user, msg) {
   if(config.get('bot.logging.userMessages') === true) {
     console.log('Received: %s %s @%s %s "%s"', msg.type, (channel.is_channel ? '#' : '') + channel.name, user.name, msg.ts, msg.text);
   }
   return true;
 };
 
-ResponseHandlers.prototype.sorryIWasEverBorn = function(channel, user, msg) {
+ResponseHandlers.prototype.sorryIWasEverBorn = function(slack, channel, user, msg) {
   if(/jeff|hefe/i.test(msg.text)) {
     channel.send("Sorry I was ever born.");
   }
   return true;
 };
 
-ResponseHandlers.prototype.doTheSongMeme = function(channel, user, msg) {
+ResponseHandlers.prototype.doTheSongMeme = function(slack, channel, user, msg) {
   var rankThreshold = config.get('bot.songs.rankThreshold');
 	var msgCleaned = msg.text.replace('\'', '');
 
