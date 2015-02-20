@@ -23,12 +23,13 @@ ResponseHandlers.prototype.sorryIWasEverBorn = function(channel, user, msg) {
 
 ResponseHandlers.prototype.doTheSongMeme = function(channel, user, msg) {
   var rankThreshold = config.get('bot.songs.rankThreshold');
+	var msgCleaned = msg.text.replace('\'', '');
 
   var query = "SELECT band, full_title, vector, query, ts_rank(vector, query) AS rank " +
-    "FROM songs, plainto_tsquery('english', $1) query " +
+    "FROM songs, plainto_tsquery('simple', $1) query " +
     "WHERE ts_rank(vector, query) > $2 AND numnode(query) > 1 ORDER BY rank DESC LIMIT 1";
 
-  this.db.executeQuery(query, [msg.text, rankThreshold], function(result) {
+  this.db.executeQuery(query, [msgCleaned, rankThreshold], function(result) {
     if(result.rowCount == 1) {
       var song = result.rows[0];
       console.log("Hit: Returned vector [%s] from query [%s] with rank threshold %s for song %s by %s", song.vector, song.query, song.rank, song.full_title, song.band);
