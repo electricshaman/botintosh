@@ -1,10 +1,12 @@
 var config = require('config');
+var _ = require('lodash');
 
 exports = module.exports = function() {
   return new ResponseHandlers();
 };
 
 function ResponseHandlers() {
+	this.slackUtil = require('./slack_util');
 }
 
 ResponseHandlers.prototype.logMessageToConsole = function(slack, channel, user, msg) {
@@ -32,10 +34,20 @@ ResponseHandlers.prototype.doTheSongMeme = function(slack, channel, user, msg) {
   this.db.executeQuery(query, [msgCleaned, rankThreshold], function(result) {
     if(result.rowCount == 1) {
       var song = result.rows[0];
-      console.log("Hit: Returned vector [%s] from query [%s] with rank threshold %s for song %s by %s", song.vector, song.query, song.rank, song.full_title, song.band);
+
       var response = ":two_hearts: " + song.band + " has a song called " + song.full_title;
       channel.send(response);
+
+      console.log("Hit: Returned vector [%s] from query [%s] with rank threshold %s for song %s by %s",
+				song.vector, song.query, song.rank, song.full_title, song.band);
     }
   });
   return true;
+};
+
+ResponseHandlers.prototype.thankYou = function(slack, channel, user, msg) {
+	if(this.slackUtil.isBotMentioned(slack, msg)) {
+		channel.send("Thank you, " + user.name + ".");
+	}
+	return true;
 };
