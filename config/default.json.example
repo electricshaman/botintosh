@@ -5,10 +5,10 @@
   "autoMark": true
  },
  "db": {
-  "user": "XXXXXXXXXX",
-  "password": "XXXXXXXXXX",
-  "database": "XXXXXXXXXX",
-  "host": "XXXXXXXXXX",
+  "user": "XXXXX",
+  "password": "XXXXX",
+  "database": "XXXXX",
+  "host": "localhost",
   "port": 5432
  },
  "dbPool": {
@@ -19,11 +19,12 @@
   "logging": false
  },
  "bot": {
+	 "name": "botintosh",
    "songs": {
-     "rankThreshold": 1e-20
+     "rankThreshold": 0.07
    },
    "logging": {
-     "userMessages": false
+     "userMessages": true
    }
  }
 }
