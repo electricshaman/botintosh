@@ -6,6 +6,8 @@
 ## Install
 
 ```sh
+$ cp config/default.json.example config/default.json
+$ vim config/default.json # (configure)
 $ npm install --save
 ```
 
