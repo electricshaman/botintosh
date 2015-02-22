@@ -28,7 +28,7 @@ ResponseHandlers.prototype.doTheSongMeme = function(slack, channel, user, msg) {
 	var msgCleaned = msg.text.replace('\'', '');
 
   var query = "SELECT band, full_title, vector, query, ts_rank(vector, query, 32) AS rank " +
-    "FROM songs, plainto_tsquery('english', $1) query " +
+    "FROM songs, plainto_tsquery('songs', $1) query " +
     "WHERE ts_rank(vector, query, 32) > $2 AND numnode(query) > 1 ORDER BY rank DESC LIMIT 1";
 
   this.db.executeQuery(query, [msgCleaned, rankThreshold], function(result) {
